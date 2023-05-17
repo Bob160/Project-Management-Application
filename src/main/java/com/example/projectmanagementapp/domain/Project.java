@@ -1,10 +1,10 @@
 package com.example.projectmanagementapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.NotNull;
-import lombok.*;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

@@ -34,10 +34,16 @@ public class ProjectsController {
         return new ResponseEntity<Project>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/{projectId}")
+    @GetMapping("/{projectIdentifier}")
     @ApiOperation("Find a project by its Id")
-    public ResponseEntity<?> findById(@PathVariable String projectId) {
-        projectService.findProjectByIdentifier(projectId);
+    public ResponseEntity<?> findByIdentifier(@PathVariable String projectIdentifier) {
+        projectService.findProjectByIdentifier(projectIdentifier);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/delete/{projectIdentifier}")
+    public ResponseEntity<?> deleteProject (@PathVariable String projectIdentifier) {
+        projectService.deleteProjectByIdentifier(projectIdentifier);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

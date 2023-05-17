@@ -5,6 +5,7 @@ import com.example.projectmanagementapp.dto.requests.CreateProjectRequest;
 import com.example.projectmanagementapp.dto.responses.CreateProjectResponse;
 import com.example.projectmanagementapp.repositories.ProjectRepository;
 import com.example.projectmanagementapp.services.ProjectService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +46,10 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project findProjectByIdentifier(String projectId) {
-        Project newProject = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
-        return newProject;
+    public CreateProjectResponse findProjectByIdentifier(String projectIdentifier) {
+        Project newProject = projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.convertValue(newProject, CreateProjectResponse.class);
     }
 
     @Override
@@ -56,8 +58,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void deleteProjectByIdentifier(String projectId) {
-        Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+    public void deleteProjectByIdentifier(String projectIdentifier) {
+        Project project = projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
         projectRepository.delete(project);
     }
 }

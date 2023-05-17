@@ -11,10 +11,10 @@ public interface ProjectService {
 
     public String saveOrUpdateProject(Project project);
 
-    public Project findProjectByIdentifier(String projectId);
+    public CreateProjectResponse findProjectByIdentifier(String projectIdentifier);
 
     public Iterable<Project> findAll();
 
-    public void deleteProjectByIdentifier(String projectId);
+    public void deleteProjectByIdentifier(String projectIdentifier);
 
 }
