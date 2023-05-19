@@ -2,7 +2,10 @@ package com.example.projectmanagementapp.controller;
 
 import com.example.projectmanagementapp.domain.Project;
 import com.example.projectmanagementapp.dto.requests.CreateProjectRequest;
+import com.example.projectmanagementapp.dto.requests.UpdateProjectRequest;
 import com.example.projectmanagementapp.dto.responses.CreateProjectResponse;
+import com.example.projectmanagementapp.dto.responses.ProjectResponseDto;
+import com.example.projectmanagementapp.dto.responses.UpdateProjectResponse;
 import com.example.projectmanagementapp.services.ProjectService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -27,23 +30,23 @@ public class ProjectsController {
         CreateProjectResponse newResponse = projectService.createProject(createProjectRequest);
         return new ResponseEntity<>(newResponse, HttpStatus.CREATED);
     }
-    @PostMapping("/save")
+    @PutMapping ("/save/{id}")
     @ApiOperation("Save and Update Project")
-    public ResponseEntity<?> saveOrUpdateProject(@RequestBody Project project) {
-        String newProject = projectService.saveOrUpdateProject(project);
-        return new ResponseEntity<Project>(HttpStatus.CREATED);
+    public ResponseEntity<UpdateProjectResponse> updateProject(@PathVariable Long id, @RequestBody UpdateProjectRequest updateProjectRequest) {
+        UpdateProjectResponse updatedProjectResponse = projectService.updateProject(id, updateProjectRequest);
+        return new ResponseEntity<>(updatedProjectResponse, HttpStatus.OK);
     }
 
     @GetMapping("/{projectIdentifier}")
     @ApiOperation("Find a project by its Id")
-    public ResponseEntity<?> findByIdentifier(@PathVariable String projectIdentifier) {
-        projectService.findProjectByIdentifier(projectIdentifier);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    public ResponseEntity<ProjectResponseDto> findByIdentifier(@PathVariable String projectIdentifier) {
+        ProjectResponseDto responseDto = projectService.findProjectByIdentifier(projectIdentifier);
+        return new ResponseEntity<>(responseDto, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete/{projectIdentifier}")
-    public ResponseEntity<?> deleteProject (@PathVariable String projectIdentifier) {
+    public ResponseEntity<String> deleteProject (@PathVariable String projectIdentifier) {
         projectService.deleteProjectByIdentifier(projectIdentifier);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Project deleted successfully!", HttpStatus.OK);
     }
 }
