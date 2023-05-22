@@ -2,6 +2,7 @@ package com.example.projectmanagementapp.dto.requests;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -10,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateProjectRequest {
+public class CreateProjectRequest implements Serializable {
     private String projectName;
     private String projectIdentifier;
     private String description;
